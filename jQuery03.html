@@ -1,0 +1,134 @@
+<html lang="ko">
+    <head>
+    
+        <title></title>
+        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <style>
+            .first{color:red}
+            .second{color:pink}
+            .third{color:orange}
+        </style>
+    </head>
+    <body>
+        <h1>메소드1</h1>
+        <h3>css() 메소드</h3>
+        <p>문서 객체의 스타일을 검사하거나 변경할 때 사용한다.</p>
+        <h1 class="first">test-0</h1>
+        <h1 class="second">test-1</h1>
+        <h1 class="third">test-2</h1>
+        <h1 class="first">test-3</h1>
+        <script>
+            $(function(){
+                // 속성명에 해당하는 속성값을 변경
+                // 메소드 체이닝
+                $(".first").css("color", "black");
+                // $(".first").css("color", "red").css("background","green");
+                $(".first").css({"color":"red","background":"green"});
+
+                // 속성명에 해당하는 속성값을 리턴
+                // 첫번째 속성값 리턴
+                console.log($(".first").css("color"));
+
+                // 객체를 통해 여러 속성을 설정
+                // 1. 
+                $(".first").css({"font-size":"3em","background":"tomato"});
+
+                //2.
+                var styleobj = {
+                    opacity : 0.5,
+                    "text-shadow" : "1px 1px 2px white"
+                }
+                $(".first").css(styleobj);
+            });
+        </script>
+        
+        <hr>
+
+        <h3>attr() 메소드</h3>
+        <p>
+            문서객체의 특정 속성값을 알아내거나 속성을 추가할 때 사용한다.<br>
+            속성 값이 setting되어 있지 않으면, undefined를 리턴함
+        </p>
+        <img src = "sample/image/flower1.png" width="400px" height="300px"><br>
+        <img src = "sample/image/flower3.png" width="400px" height="300px"><br>
+        <button onclick = "changeImgSrc();">사진 src 변경</button>
+        <script>
+           $(function(){
+                // 속성명에 해당하는 속성을 리턴
+                // 선택자가 여러 요소를 리턴!!! 하는 경우, 첫번째 요소의 값을 리턴함
+                var imgSrc = $("img").attr('src');  // 한개면 getter , 두개면 setter
+                console.log("사진 경로 : " + imgSrc);
+
+                // 객체를 통해 여러 속성을 설정
+                $("img").attr({"width":"100px","height":"50px"});
+                // $("img").attr("width","100px");
+
+                // 객체의 속성을 제거
+                $("img").removeAttr("width").removeAttr("height");
+            });
+
+            function changeImgSrc(){
+                $("img").attr("src","sample/image/flower2.png")
+            }
+        </script>
+
+        <hr>
+
+        <h3>prop() 메소드</h3>
+        <p>
+            속성값의 여부를 true/false로 리턴함<br>
+            자바스크립트를 이용한 동적인 제어에 많이 사용함.
+            ★★★★★attr과 차이점★★★★★
+            속성에 속성값을 설정해 줄 때는 차이가 없으나
+            속성을 리턴할 때는 attr -> 속성값, prop -> boolean이 나옴
+        </p>
+        <script>
+            $(document).ready(function(){
+                // console.log($("input[type=checkbox]").prop("checked"));
+                $("input[type=checkbox]").click(function(){
+                    console.log($(this).prop("checked"));
+                });
+
+            });
+        </script>
+        <!-- <input type="checkbox" id="checkAll" name="checkAll" style="width: 100px; height: 200px;"> -->
+        
+        <form>
+            <input type="checkbox" id="checkAll" name="checkAll">
+            <label for="checkAll">전체 선택/해제</label>
+            
+            <input type="checkbox" id="pizza" class="common" name="menu">
+            <label for="pizza">피자 400원</label>
+
+            <input type="checkbox" id="hotdog" class="common" name="menu">
+            <label for="hotdog">핫도그 50원</label>
+
+            <input type="checkbox" id="chicken" class="common" name="menu">
+            <label for="chicken">치킨 500원</label>
+            
+            <input type="checkbox" id="coke" class="common" name="menu">
+            <label for="coke">콜라 10원</label>
+        </form>
+
+
+        <script>
+            $(function(){
+                $("#checkAll").click(function(){
+                    var bool = $(this).prop('checked');
+                    $(".common").prop('checked',bool);
+                })
+            });
+        </script>
+
+
+
+
+
+
+
+
+
+
+    </body>
+    
+</html>
